@@ -1,0 +1,10 @@
+# Archivos de entorno (¡Nunca subas tus credenciales!)
+.env
+
+# Volúmenes de Docker locales si los mapeas en carpetas
+.volumes/
+
+# Archivos específicos de sistema operativo
+.DS_Store
+Thumbs.db
+desktop.ini

@@ -1,0 +1,34 @@
+services:
+  - type: web
+    name: n8n
+    runtime: image
+    image:
+      url: docker.n8n.io/n8nio/n8n:latest
+    plan: starter
+    healthCheckPath: /healthz
+    disk:
+      name: n8n-data
+      mountPath: /home/node/.n8n
+      sizeGB: 1
+    envVars:
+      - key: N8N_PORT
+        value: ${{PORT}}
+      - key: N8N_LISTEN_ADDRESS
+        value: 0.0.0.0
+      - key: N8N_PROTOCOL
+        value: https
+      - key: N8N_HOST
+        fromService:
+          type: web
+          name: n8n
+          property: host
+      - key: N8N_EDITOR_BASE_URL
+        value: https://${{N8N_HOST}}
+      - key: WEBHOOK_URL
+        value: https://${{N8N_HOST}}/
+      - key: GENERIC_TIMEZONE
+        value: America/Argentina/Buenos_Aires
+      - key: TZ
+        value: America/Argentina/Buenos_Aires
+      - key: N8N_ENCRYPTION_KEY
+        generateValue: true
